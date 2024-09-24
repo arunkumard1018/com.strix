@@ -8,7 +8,7 @@ export const fetchMe = async () => {
         if (response.status === 200) {
             return (response.data)
         } else {
-            console.error('failed to fetch you');
+            console.error('failed to fetch user details');
             return null;
         }
     } catch (error) {

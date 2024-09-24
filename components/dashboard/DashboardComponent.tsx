@@ -35,6 +35,7 @@ import { Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from 
 import { useAuth } from "@/providers/AuthProvider"
 import { useRouter } from "next/navigation"
 import { logoff } from "@/app/actions"
+import { ModeToggle } from "@/providers/ThemeSelect"
 
 
 export default function DashboardComponent() {
@@ -215,6 +216,7 @@ export default function DashboardComponent() {
                             </div>
                         </form>
                     </div>
+                    <ModeToggle />
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
                             <Button variant="secondary" size="icon" className="rounded-full">
@@ -225,6 +227,7 @@ export default function DashboardComponent() {
                         <DropdownMenuContent align="end">
                             <DropdownMenuLabel>My Account</DropdownMenuLabel>
                             <DropdownMenuSeparator />
+                            <Link href="#"><DropdownMenuItem>{authContext?.user?.email}</DropdownMenuItem></Link>
                             <DropdownMenuItem>Settings</DropdownMenuItem>
                             <DropdownMenuItem>Support</DropdownMenuItem>
                             <DropdownMenuSeparator />
@@ -233,12 +236,6 @@ export default function DashboardComponent() {
                     </DropdownMenu>
                 </header>
                 <main className="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6">
-                    <div className="flex items-center">
-                        {/* <h1 className="text-lg font-semibold md:text-2xl">Inventory</h1> */}
-                        <h3 className="text-2xl font-bold tracking-tight">
-                            {<pre>{JSON.stringify(authContext?.user, null, 2)}</pre>}
-                        </h3>
-                    </div>
                     <div
                         className="flex flex-1 items-center justify-center rounded-lg border border-dashed shadow-sm" x-chunk="dashboard-02-chunk-1"
                     >
@@ -249,6 +246,7 @@ export default function DashboardComponent() {
                             </h3>
                             <p className="text-sm text-muted-foreground">
                                 You can start selling as soon as you add a product.
+                                {JSON.stringify(useAuth()?.user)}
                             </p>
                             <Button className="mt-4">Fetch Data</Button>
                         </div>

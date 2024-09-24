@@ -1,9 +1,11 @@
+import { ProductTable } from '@/components/dashboard/products/ProductTable'
 import React from 'react'
 
-function ProductPage() {
+function page() {
   return (
-    <div>ProductPage</div>
+    // <div className='text-4xl text-center text-green-400'>Product Page</div>
+    <ProductTable className="w-screen md:w-[82.9vw]" />
   )
 }
 
-export default ProductPage
+export default page

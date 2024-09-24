@@ -1,4 +1,19 @@
+import { RegForm } from "@/lib/type/Forms";
 import axios from "axios";
+
+export const authenticate = async (email: string, password: string) => {
+    return await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/authenticate`,
+        { email: email, password: password },
+        { withCredentials: true } // This ensures the HTTP-only cookie is stored
+    );
+}
+
+export const registerUser = (FormData: RegForm) => {
+    return axios.post(`${process.env.NEXT_PUBLIC_API_URL}/register`,
+        FormData,
+        { withCredentials: true }
+    )
+}
 
 export const logout = async () => {
     try {
@@ -14,7 +29,6 @@ export const logout = async () => {
     }
     catch {
         document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
-        console.log()
         return
     }
 }

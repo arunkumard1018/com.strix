@@ -1,9 +1,10 @@
-import React from 'react'
+import BusinessData from "@/components/dashboard/business/BusinessData"
 
-function BusinessPage() {
+
+function Business() {
   return (
-    <div>BusinessPage</div>
+    <BusinessData/>
   )
 }
 
-export default BusinessPage
+export default Business

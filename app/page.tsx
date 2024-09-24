@@ -1,4 +1,7 @@
 import { AppLogo, NavList, SecondaryHeroSection, SheetComponent } from "@/components/custom/elements";
+import { Features} from "@/components/home-page/Features";
+import FooterComponent from "@/components/home-page/FooterComponent";
+import { ReviewsMarquee } from "@/components/home-page/Reviews";
 import ShinyButton from "@/components/magicui/shiny-button";
 import WordRotate from "@/components/magicui/word-rotate";
 import { Button } from "@/components/ui/button";
@@ -6,10 +9,10 @@ import Image from "next/image";
 import Link from "next/link";
 
 
-function  Dashboard() {
+function Page() {
   return (
-    <div className="px-4 md:px-36">
-      <nav className="h-12 flex justify-between items-center">
+    <div className="px-4 md:px-36 bg-muted/10">
+      <nav className="h-12 flex justify-between items-center my-2">
         <div><AppLogo className="" /></div>
         <div className="hidden md:block"><NavList className="space-x-6 mt-2 text-lg  "
           LinkClassName="hover:bg-muted py-2 px-4 rounded-full" /></div>
@@ -20,7 +23,7 @@ function  Dashboard() {
           <SheetComponent />
         </div>
       </nav>
-      <main>
+      <main className="space-y-10">
         <div className="mt-20 md:mt-24 flex-col items-center justify-center space-y-4">
           <h1 className="text-5xl md:text-7xl font-extrabold text-center md:flex items-center justify-center">
             Create
@@ -35,12 +38,12 @@ function  Dashboard() {
           </h1>
           <p className="text-center text-xl text-muted-foreground">Free Invoice Software to create Invoices in Seconds</p>
           <div className="flex justify-center items-center space-x-4">
-            <ShinyButton text="Get Started Now" className="rounded-full  shadow bg-primary/100" textClassName="text-white" />
+            <ShinyButton text="Get Started Now" className="rounded-full bg-black text-foreground px-3 sm:px-6" textClassName="text-white" />
             <ShinyButton text="Explore Demo" className="rounded-full" />
           </div>
         </div>
-        <div className="mt-10">
-          <div className="hidden md:flex items-center justify-center">
+        <div className="mt-20">
+          <div className="hidden md:flex items-center justify-center border">
             <div className="relative md:w-full md:h-[90vh] pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-center text-8xl font-semibold leading-none text-transparent dark:from-white dark:to-slate-900/10">
               <Image src="/img/primary-image.jpg" alt="" fill objectFit="fit" />
             </div>
@@ -51,12 +54,17 @@ function  Dashboard() {
             </div>
           </div>
         </div>
+        <Features/>
+        <ReviewsMarquee/>
         <SecondaryHeroSection />
       </main>
+
+      
+      <FooterComponent />
     </div>
   );
 }
 
 
 
-export default Dashboard;
+export default Page;

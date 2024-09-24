@@ -1,9 +1,13 @@
-import React from 'react'
+import CustomerData from "@/components/dashboard/customers/CustomerData"
 
-function CustomersPage() {
-  return (
-    <div>CustomersPage</div>
-  )
+function Customers() {
+    return (
+        <div>
+            {/* <div className='text-4xl text-center text-green-400'>Customers Page</div> */}
+            <CustomerData className="w-screen md:w-[82.9vw]"/>
+        </div>
+
+    )
 }
 
-export default CustomersPage
+export default Customers

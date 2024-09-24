@@ -1,9 +1,14 @@
+import { InvoiceTable } from '@/components/dashboard/invoice/InvoiceTable';
 import React from 'react'
 
-function InvoicePage() {
+function Invoice() {
+  const Business = 0;
   return (
-    <div>InvoicePage</div>
+    <>
+      <InvoiceTable className="w-screen md:w-[82.9vw]" />
+    </>
+
   )
 }
 
-export default InvoicePage
+export default Invoice

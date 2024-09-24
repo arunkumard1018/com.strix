@@ -5,6 +5,8 @@ import { cn } from '@/lib/utils';
 import { Menu, Package2 } from "lucide-react";
 import Image from 'next/image';
 import Link from "next/link";
+
+
 function AppLogo({ className }: { className?: string }) {
     return (
         <div className={cn("flex space-x-1 items-center justify-center", className)}>
@@ -66,9 +68,8 @@ export function SheetComponent({ side = "right" }:
 export function SecondaryHeroSection() {
     return (
         <>
-            <div className='p-6 space-y-2 h-[20vh]' >
-                <h2 className='text font-medium text-black text-center  text-2xl sm:text-3xl'>{HERO_PAGE_CONTENT.secondaryHeroContent.mainText}</h2>
-
+            <div className='p-6 space-y-2' >
+                <h2 className='text font-bold text-black text-center text-xl  md:text-3xl'>{HERO_PAGE_CONTENT.secondaryHeroContent.mainText}</h2>
                 <p className='text-sm text-center'>{HERO_PAGE_CONTENT.secondaryHeroContent.description}</p>
             </div>
             {/* Card Section */}
@@ -85,6 +86,7 @@ export function SecondaryHeroSection() {
         </>
     )
 }
+
 
 export function CustomDeatisCard({ icon, title, description, className }:
     { icon: string, title: string, description: string, className?: string }) {
