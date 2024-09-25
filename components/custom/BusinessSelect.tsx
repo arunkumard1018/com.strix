@@ -22,7 +22,7 @@ export function BusinessSelect({ className, Placeholder, label, business, onChan
                 <SelectGroup>
                     <SelectLabel>{label}</SelectLabel>
                     {business.map((item) => (
-                        <SelectItem key={item.id} value={item.id}>{item.name}</SelectItem>
+                        <SelectItem key={item.id} value={String(item.id)}>{item.name}</SelectItem>
                     ))}
                 </SelectGroup>
             </SelectContent>
