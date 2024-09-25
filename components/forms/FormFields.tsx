@@ -3,13 +3,14 @@ import { FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessa
 import { UseFormReturn } from "react-hook-form"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { cn } from "@/lib/utils"
+import { BusinessFormData } from "@/lib/zodSchemas/DashBoardFormSchemas"
 
 interface TextInputProps {
-    name: string
+    name: keyof BusinessFormData;
     label: string
     placeholder?: string
     description?: string
-    form: UseFormReturn<any>
+    form: UseFormReturn<BusinessFormData>
 }
 
 export const TextInput: React.FC<TextInputProps> = ({ name, label, placeholder, description, form }) => {
@@ -33,11 +34,11 @@ export const TextInput: React.FC<TextInputProps> = ({ name, label, placeholder, 
 
 
 interface SelectInputProps {
-    name: string
+    name: keyof BusinessFormData;
     label: string
     placeholder?: string
     options: string[]
-    form: UseFormReturn<any>
+    form: UseFormReturn<BusinessFormData>
     className?:string
 }
 

@@ -1,5 +1,4 @@
 // components/ErrorPage.tsx
-import { FlipHorizontal, Minus } from 'lucide-react';
 import { Button } from '../ui/button';
 
 

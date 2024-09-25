@@ -11,14 +11,14 @@ export type Payment = {
 export type Business = {
     id: string
     businessLogo: string
-    BusinessName: String
+    BusinessName: string
     revenue: number
     totalInvoices: number
 }
 
 export type Customers = {
     id: string
-    name: String
+    name: string
     city: string
     shippingAddress: string
     billingAddress: string

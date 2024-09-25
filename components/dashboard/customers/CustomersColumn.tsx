@@ -39,7 +39,7 @@ export const Customerscolumns: ColumnDef<Customers>[] = [
                 <TableColumnHeader column={column} title="Customer Name" isMobileHidden={false} />
             )
         },
-        cell: ({ row,table }) => {
+        cell: ({ row }) => {
             // console.log(table.getSelectedRowModel().rowsById)
             const customer = row.original
             return (

@@ -8,10 +8,12 @@ export const BusinessFormSchema = z.object({
     address: z.string({ required_error: "Adress required for Invoicing" })
         .min(5, { message: "Address Required" }),
     city: z.string().min(3, { message: "City Required" }),
-    zip: z.number().min(3, { message: "Zip Required" }),
+    zip: z.string(),
     state: z.string().min(3, { message: "Select The State" }),
     GSTIN: z.string(),
-    statecode: z.number(),
-    HSN: z.number(),
+    statecode: z.string(),
+    HSN: z.string(),
 
 })
+
+export type BusinessFormData = z.infer<typeof BusinessFormSchema>;

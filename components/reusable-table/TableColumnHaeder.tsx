@@ -22,7 +22,6 @@ interface DataTableColumnHeaderProps<TData, TValue>
 export function TableColumnHeader<TData, TValue>({
     column,
     title,
-    isMobileHidden,
     className,
     NotSortable = false,
 }: DataTableColumnHeaderProps<TData, TValue>) {

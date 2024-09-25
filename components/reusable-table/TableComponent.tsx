@@ -92,7 +92,7 @@ export function TableComponent<TData, TValue>(
 
                                     <TableRow key={headerGroup.id}>
                                         {headerGroup.headers.map((header, index) => {
-                                            let val = columns[index].id ? smHiddenCells?.includes(columns[index].id) : undefined;
+                                            const val = columns[index].id ? smHiddenCells?.includes(columns[index].id) : undefined;
 
                                             return (
                                                 <TableHead key={header.id} className={cn(val && "hidden md:table-cell")} >
@@ -117,7 +117,7 @@ export function TableComponent<TData, TValue>(
                                             data-state={row.getIsSelected() && "selected"}
                                         >
                                             {row.getVisibleCells().map((cell, index) => {
-                                                let val = columns[index].id ? smHiddenCells?.includes(columns[index].id) : undefined;
+                                                const val = columns[index].id ? smHiddenCells?.includes(columns[index].id) : undefined;
                                                 return (
                                                     <TableCell key={cell.id} className={cn(val && "hidden md:table-cell")}>
                                                         {flexRender(

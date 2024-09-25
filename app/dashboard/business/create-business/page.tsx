@@ -23,14 +23,13 @@ export default page
 
 
 
-
 export function BusinessDetailsForm() {
     const form = useForm<z.infer<typeof BusinessFormSchema>>({
         resolver: zodResolver(BusinessFormSchema),
         defaultValues: {
             name: "",
             category: "",
-            address: "", city: "", state: "", statecode: undefined, GSTIN: "", HSN: undefined, zip: undefined,
+            address: "", city: "", state: "", GSTIN: "", zip: "",HSN:"",statecode:""
         },
     })
 
