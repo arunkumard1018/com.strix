@@ -5,14 +5,15 @@ export const fetchMe = async () => {
         const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/me`,
             { withCredentials: true }
         );
+        console.log("RESP",response)
         if (response.status === 200) {
             return (response.data)
         } else {
-            console.error('failed to fetch user details');
             return null;
         }
     } catch (error) {
-        console.error('Error during fetching me:', error);
+        console.log("ERROR",error)
+        return error;
     }
 }
 

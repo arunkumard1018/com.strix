@@ -1,28 +1,16 @@
 "use client"
 
 import { ActionsDropDownRow } from "@/components/reusable-table/ActionDropDownRow"
-import { TableColumnHeader } from "@/components/reusable-table/TableColumnHaeder"
-import { Business } from "@/lib/type/TableData"
-import {
-    ColumnDef
-} from "@tanstack/react-table"
-
+import { useToast } from "@/hooks/use-toast"
+import { Business } from "@/lib/definations"
+import { deleteBusiness, fetchBusinessList } from "@/service/data/BusinessData"
+import { resetBusiness } from "@/store/slices/businessSlice"
+import { resetBusinessList } from "@/store/slices/userSlice"
+import { RootState } from "@/store/store"
+import { ColumnDef } from "@tanstack/react-table"
 import { ChevronsUpDown } from "lucide-react"
 import Image from "next/image"
-
-// This type is used to define the shape of our data.
-// we can use a Zod schema here if we want.
-
-
-
-
-// export type Business = {
-//     id: string
-//     businessLogo:string
-//     BusinessName: String
-//     revenue:number
-//     totalInvoices:number
-// }
+import { useDispatch, useSelector } from "react-redux"
 
 export const Businesscolumns: ColumnDef<Business>[] = [
 
@@ -39,13 +27,13 @@ export const Businesscolumns: ColumnDef<Business>[] = [
                 width="64"
             />
         ),
-        
+
     },
 
 
     {
-        id: "BusinessName",
-        accessorKey: "BusinessName",
+        id: "name",
+        accessorKey: "name",
         header: ({ column }) => {
             return (
                 <div className="flex items-center justify-start cursor-pointer capitalize" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")} >
@@ -54,41 +42,51 @@ export const Businesscolumns: ColumnDef<Business>[] = [
                 </div>
             )
         },
-    cell: ({ row }) => <div className="capitalize">{row.getValue("BusinessName")}</div>,
+        cell: ({ row }) => <div className="capitalize">{row.getValue("name")}</div>,
     },
 
+
     {
-        id: "totalInvoices",
-        accessorKey: "totalInvoices",
-        header: "Total Invoices",
+        id: "businessType",
+        accessorKey: "businessType",
+        header: "Business Type",
         cell: ({ row }) => (
-            <div className="capitalize table-cell">{row.getValue("totalInvoices")}</div>
+            <div className="capitalize table-cell">{row.getValue("businessType")}</div>
         ),
     },
-    
-    {
-        id: "revenue",
-        accessorKey: "revenue",
-        header: ({column}) => <TableColumnHeader column={column} title="Revenue"/>,
-        cell: ({ row }) => {
-            const amount = parseFloat(row.getValue("revenue"))
-            const formatted = new Intl.NumberFormat("en-US", {
-                style: "currency",
-                currency: "INR",
-            }).format(amount)
 
-            return <div className="font-medium">{formatted}</div>
-        },
+    {
+        id: "gstin",
+        accessorKey: "gstin",
+        header: "GSTIN",
+        cell: ({ row }) => (
+            <div className="capitalize table-cell">{row.getValue("gstin")}</div>
+        ),
     },
+
 
     {
         id: "actions",
         enableHiding: false,
         cell: ({ row }) => {
             const business = row.original
+            const dispatch = useDispatch();
+
             return (
-                <ActionsDropDownRow id={business.id} name="Business" path="/dashboard/business" />
+                <ActionsDropDownRow
+                    deleteFunction={deleteBusiness}
+
+                    revalidator={() => {
+                        dispatch(resetBusiness())
+                        dispatch(resetBusinessList())
+                    }}
+                    id={business.id}
+                    itemName={business.name}
+                    name="Business"
+                    path="/dashboard/business" />
             )
         },
     },
 ]
+
+

@@ -3,7 +3,7 @@ import { FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessa
 import { UseFormReturn } from "react-hook-form"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { cn } from "@/lib/utils"
-import { BusinessFormData } from "@/lib/zodSchemas/DashBoardFormSchemas"
+import { BusinessFormData } from "@/lib/schemas"
 
 interface TextInputProps {
     name: keyof BusinessFormData;
@@ -19,10 +19,37 @@ export const TextInput: React.FC<TextInputProps> = ({ name, label, placeholder, 
             control={form.control}
             name={name}
             render={({ field }) => (
-                <FormItem>
-                    <FormLabel>{label}</FormLabel>
+                <FormItem className="space-y-2">
+                    <FormLabel className="text-sm">{label}</FormLabel>
                     <FormControl>
-                        <Input placeholder={placeholder} {...field} />
+                        <Input placeholder={placeholder} {...field} value={field.value ?? ''} />
+                    </FormControl>
+                    {description && <FormDescription>{description}</FormDescription>}
+                    <FormMessage />
+                </FormItem>
+            )}
+        />
+    )
+}
+
+interface NumberInputProps {
+    name: keyof BusinessFormData;
+    label: string
+    placeholder?: string
+    description?: string
+    form: UseFormReturn<BusinessFormData>
+}
+
+export const NumberInput : React.FC<NumberInputProps> = ({ name, label, placeholder, description, form }) => {
+    return (
+        <FormField
+            control={form.control}
+            name={name}
+            render={({ field }) => (
+                <FormItem className="space-y-2">
+                    <FormLabel className="text-sm">{label}</FormLabel>
+                    <FormControl>
+                        <Input type="number" placeholder={placeholder} {...field} value={field.value} />
                     </FormControl>
                     {description && <FormDescription>{description}</FormDescription>}
                     <FormMessage />
@@ -41,7 +68,6 @@ interface SelectInputProps {
     form: UseFormReturn<BusinessFormData>
     className?:string
 }
-
 export const SelectInput: React.FC<SelectInputProps> = ({ name, label, placeholder, options, form ,className}) => {
     return (
         <FormField 
@@ -51,9 +77,9 @@ export const SelectInput: React.FC<SelectInputProps> = ({ name, label, placehold
                 <FormItem className={cn("w-full",className)}>
                     <FormLabel>{label}</FormLabel>
                     <FormControl>
-                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <Select onValueChange={field.onChange} defaultValue={typeof field.value === 'string' ? field.value : undefined}>
                             <SelectTrigger>
-                                <SelectValue placeholder={placeholder || "Select"} />
+                                <SelectValue placeholder={placeholder} />
                             </SelectTrigger>
                             <SelectContent>
                                 {options.map((option) => (

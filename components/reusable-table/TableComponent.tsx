@@ -11,7 +11,7 @@ import { DataTableViewOptions } from "./TableOptions"
 
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[]
-    data: TData[]
+    data: TData[] 
     heading: string
     headingInfo: string
     isSearchInputRequired: boolean
@@ -62,7 +62,7 @@ export function TableComponent<TData, TValue>(
                 {/* Table Header */}
                 <CardHeader className="flex flex-row items-center justify-between">
                     <div>
-                        <CardTitle>{heading}</CardTitle>
+                        <CardTitle className="text-2xl font-bold">{heading}</CardTitle>
                         <CardDescription>{headingInfo}</CardDescription>
                     </div>
 
@@ -95,7 +95,7 @@ export function TableComponent<TData, TValue>(
                                             const val = columns[index].id ? smHiddenCells?.includes(columns[index].id) : undefined;
 
                                             return (
-                                                <TableHead key={header.id} className={cn(val && "hidden md:table-cell")} >
+                                                <TableHead key={header.id} className={cn( " text-xs md:text-sm",val && "hidden md:table-cell")} >
                                                     {header.isPlaceholder
                                                         ? null
                                                         : flexRender(

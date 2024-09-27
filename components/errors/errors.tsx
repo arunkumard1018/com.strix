@@ -1,4 +1,5 @@
 // components/ErrorPage.tsx
+import { cn } from '@/lib/utils';
 import { Button } from '../ui/button';
 
 
@@ -25,3 +26,21 @@ export function InternalServerError({ message, reset }: { message?: string, rese
         </div>
     );
 }
+
+
+// /components/errors/errors.tsx
+export const PageError = ({errorName, reset, message,className }: { reset: () => void, message: string,className ?:string, errorName:string  }) => {
+    return (
+        <div className={cn("mx-6 flex flex-col items-center justify-center h-full",className)}>
+            <h1 className="text-xl font-bold text-red-600">{errorName}</h1>
+            <p>{message}</p>
+            <Button 
+            variant="default"
+                className="mt-4 px-4 py-2 rounded" 
+                onClick={reset}
+            >
+                Retry
+            </Button>
+        </div>
+    );
+};

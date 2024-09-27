@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { loginSchema } from "@/lib/zodSchemas/formValidation"
+import { loginSchema } from "@/lib/schemas"
 import { authenticate } from "@/service/AuthService"
 import { AxiosError } from "axios"
 import Link from "next/link"
@@ -15,6 +15,7 @@ import { useState } from "react"
 
 
 export default function LoginForm() {
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(false)
@@ -44,22 +45,24 @@ export default function LoginForm() {
       const response = await authenticate(email, password);
       // on Authentication Successfull
       if (response.status === 200) router.push('/dashboard');
+
     } catch (error) {
-      console.log(error)
+      
       if (error instanceof AxiosError) {
         //Invalid Credentials
         if (error.response?.status === 401) setError(true)
-        //Internal Server Error
+        
+          //Internal Server Error
         else setServerError(true);
+
       } else {
         setError(true)
       }
+
     } finally {
       setLoading(false);
     }
   };
-
-
 
   if (serverError) {
     return <InternalServerError message="unable to Login at this time" reset={() => setServerError(false)} />

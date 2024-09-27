@@ -2,9 +2,9 @@
 
 import {ColumnDef} from "@tanstack/react-table"
 import { Checkbox } from "@/components/ui/checkbox"
-import { Payment } from "@/lib/type/TableData"
 import { ActionsDropDownRow } from "@/components/reusable-table/ActionDropDownRow"
 import { TableColumnHeader } from "@/components/reusable-table/TableColumnHaeder"
+import { Payment } from "@/lib/table-data-definations"
 
 // This type is used to define the shape of our data.
 // we can use a Zod schema here if we want.
@@ -96,7 +96,7 @@ export const Invoicecolumns: ColumnDef<Payment>[] = [
         cell: ({ row }) => {
             const payment = row.original
             return (
-                <ActionsDropDownRow id={payment.id} name="Invoice" path="/dashboard/invoices" />
+                <ActionsDropDownRow id={parseInt(payment.id)} name="Invoice" path="/dashboard/invoices" />
 
             )
         },

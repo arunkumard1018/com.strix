@@ -6,9 +6,9 @@ import {
 
 import { Badge } from "@/components/ui/badge"
 import { Checkbox } from "@/components/ui/checkbox"
-import { Product } from "@/lib/type/TableData"
 import { TableColumnHeader } from "@/components/reusable-table/TableColumnHaeder"
 import { ActionsDropDownRow } from "@/components/reusable-table/ActionDropDownRow"
+import { Product } from "@/lib/table-data-definations"
 
 // This type is used to define the shape of our data.
 // we can use a Zod schema here if we want.

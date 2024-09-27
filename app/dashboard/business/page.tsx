@@ -1,10 +1,13 @@
-import BusinessData from "@/components/dashboard/business/BusinessData"
+
+import BusinessTable from "@/components/dashboard/business/BusinessData";
 
 
 function Business() {
+
   return (
-    <BusinessData/>
+      <BusinessTable />
   )
 }
 
 export default Business
+

@@ -1,13 +1,21 @@
 import { logoff } from "@/app/actions"
 import { Button } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger, } from "@/components/ui/dropdown-menu"
+import { clearUser } from "@/store/slices/userSlice"
 import { RootState } from "@/store/store"
 import { CircleUser } from "lucide-react"
 import Link from "next/link"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 
 const UserMenu = () => {
     const activeUser = useSelector((state: RootState) => state.user);
+    const dispatch = useDispatch();
+    
+    function doLogout(){
+        logoff();
+        dispatch(clearUser())
+    }
+    
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -23,7 +31,7 @@ const UserMenu = () => {
                 <Link href="#"><DropdownMenuItem>Settings</DropdownMenuItem></Link>
                 <Link href="#"><DropdownMenuItem>Support</DropdownMenuItem></Link>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={() => logoff()}>Logout</DropdownMenuItem>
+                <DropdownMenuItem onClick={doLogout}>Logout</DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>
     )

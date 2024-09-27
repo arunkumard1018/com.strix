@@ -24,9 +24,9 @@ function NavBar({ className }: { className?: string }) {
     function closeSheet() {
         setsheetOpen(!sheetOpen);
     }
-    
+
     const handleBusinessChange = (id: string) => {
-        
+
         dispatch(setActiveBusiness(parseInt(id)))
         console.log("Update Business to ", id);
     }
@@ -61,7 +61,7 @@ function NavBar({ className }: { className?: string }) {
                         </SheetContent>
                     </Sheet>
                     <div className="w-full flex flex-row space-x-8">
-                        
+
                         <BusinessSelect label="Select Business"
                             className="w-[180px] md:w-[250px] border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground"
                             Placeholder={userData.activeBusiness?.name}
@@ -83,7 +83,6 @@ function NavBar({ className }: { className?: string }) {
 
                     <ModeToggle />
                     <UserMenu />
-
                 </header>
             </div>
 

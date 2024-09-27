@@ -1,6 +1,6 @@
 import {FileText,Home,Landmark,LineChart,Package,Users} from "lucide-react";
 
-export const BUSINESS_CATEGORY = ["Retail", "Finance", "Technology","Transpost","service Sector"];
+export const BUSINESS_CATEGORY = ["RETAIL", "TRANSPORT", "OTHER"]
 
 export const DASHBOARD_SIDE_BAR_LINKS = [
     {

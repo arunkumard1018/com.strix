@@ -6,8 +6,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { BUSINESS_TYPE, INDIAN_STATES } from "@/config/FormConfig";
-import { FormErrors, RegForm } from "@/lib/type/Forms";
-import { Regschema } from "@/lib/zodSchemas/formValidation";
+import { FormErrors, UserInfo } from "@/lib/definations";
+import { Regschema } from "@/lib/schemas";
 import { registerUser } from "@/service/AuthService";
 import { AxiosError } from "axios";
 import Link from "next/link";
@@ -29,9 +29,9 @@ const initialFormData = {
 
 export default function RegistrationForm() {
 
-  const [formData, setFormData] = useState<RegForm>(initialFormData);
-
+  const [formData, setFormData] = useState<UserInfo>(initialFormData);
   const [errors, setErrors] = useState<FormErrors>({});
+  
   const [serverError, setServerError] = useState(false);
   const [regSuccess, setRegSuccess] = useState(false)
   const [formState, setFormState] = useState('idle'); // Track form submission state
@@ -96,7 +96,6 @@ export default function RegistrationForm() {
       } else {
         setServerError(true)
       }
-
     } finally {
       setFormState('idle'); // Reset form state after submission
     }

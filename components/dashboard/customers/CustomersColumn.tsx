@@ -3,7 +3,7 @@
 import { ActionsDropDownRow } from "@/components/reusable-table/ActionDropDownRow"
 import { TableColumnHeader } from "@/components/reusable-table/TableColumnHaeder"
 import { Checkbox } from "@/components/ui/checkbox"
-import { Customers } from "@/lib/type/TableData"
+import { Customers } from "@/lib/table-data-definations"
 import { ColumnDef } from "@tanstack/react-table"
 
 export const Customerscolumns: ColumnDef<Customers>[] = [
@@ -88,7 +88,7 @@ export const Customerscolumns: ColumnDef<Customers>[] = [
         cell: ({ row }) => {
             const payment = row.original
             return (
-                <ActionsDropDownRow id={payment.id} name="Customer" path="/dashboard/customers" />
+                <ActionsDropDownRow id={parseInt(payment.id)} name="Customer" path="/dashboard/customers" />
             )
         },
     },

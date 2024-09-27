@@ -7,15 +7,6 @@ export type Payment = {
     isHidden?: boolean
 }
 
-
-export type Business = {
-    id: string
-    businessLogo: string
-    BusinessName: string
-    revenue: number
-    totalInvoices: number
-}
-
 export type Customers = {
     id: string
     name: string

@@ -38,6 +38,10 @@ const userSlice = createSlice({
         setActiveBusiness: (state, action: PayloadAction<number>) => {
             state.activeBusiness = state.businesses.find(business => business.id === action.payload) || null;
         },
+        resetBusinessList(state){
+            state.businesses = [];
+        },
+
         clearUser(state) {
             state.id = null;
             state.name = '';
@@ -47,7 +51,7 @@ const userSlice = createSlice({
     },
 });
 
-export const { setUser, setActiveBusiness, clearUser } = userSlice.actions;
+export const { setUser, setActiveBusiness, clearUser,resetBusinessList } = userSlice.actions;
 export default userSlice.reducer;
 
 
