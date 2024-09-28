@@ -9,17 +9,16 @@ import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
 
-function page() {
-    const parms = useParams()
+function Page() {
+    const params = useParams()
     const [business, setbusiness] = useState<BusinessFormData>()
     const [serverError, setServerError] = useState(false)
     const [loading, setLoading] = useState(true)
     const router = useRouter();
 
-
     useEffect(() => {
         const loadBusiness = async () => {
-            const resp = await getBusiness(Number(parms.id))
+            const resp = await getBusiness(Number(params.id))
             if (resp === null) {
                 setServerError(true)
                 return;
@@ -28,7 +27,7 @@ function page() {
             setbusiness({ ...resp, ...resp.address })
         }
         loadBusiness();
-    }, [])
+    }, [params.id])
 
     if (business === undefined) {
         return <TableSkeleton />
@@ -46,16 +45,16 @@ function page() {
         stateCode: String(business.stateCode) || "",
         hsn: String(business.hsn) || "",
         invoicePrefix: business.invoicePrefix || "",
-        businessLogo: business.businessLogo || "/img/primary-image-dark.jpg",
+        businessLogo: business.businessLogo || "/img/bentalgrid/img-1.jpg",
     };
 
     return (
         <div>
-            {serverError && <PageError errorName='500 Internal Server Error' message='Unable to get Business Details' reset={() => router.push(`${parms.id}`)} />}
+            {serverError && <PageError errorName='500 Internal Server Error' message='Unable to get Business Details' reset={() => router.push(`${params.id}`)} />}
             {loading ? <TableSkeleton /> :
                 <div className='flex items-center justify-center my-4'><BusinessDetailsForm defaultValues={defaultValues} /></div>}
         </div>
     )
 }
 
-export default page
+export default Page

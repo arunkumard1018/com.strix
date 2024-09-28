@@ -17,7 +17,7 @@ export default function page() {
         stateCode: " ",
         hsn: "",
         invoicePrefix: "",
-        businessLogo: "/img/primary-image-dark.jpg",
+        businessLogo: "/img/bentalgrid/img-1.jpg",
     }
 
     const crumbPath = [

@@ -8,10 +8,9 @@ import { setBusinessList } from "@/store/slices/businessSlice"
 import { RootState } from "@/store/store"
 import { File, PlusCircle } from "lucide-react"
 import Link from "next/link"
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Businesscolumns } from "./BusinessColumn"
-
 
 
 export default function BusinessTable() {
@@ -26,7 +25,7 @@ export default function BusinessTable() {
         if (businessList.length <= 0) {
             loadBusinessList();
         }
-    }, [businessList.length])
+    }, [businessList.length,dispatch])
 
 
     if (businessList.length === 0) return <TableSkeleton />

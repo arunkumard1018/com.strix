@@ -7,18 +7,23 @@ import { BUSINESS_CATEGORY } from '@/config/DashboardConfig'
 import { INDIAN_STATES } from '@/config/FormConfig'
 import { useToast } from '@/hooks/use-toast'
 import { BusinessFormData, BusinessFormSchema } from '@/lib/schemas'
-import { createBusiness, updateBusiness } from '@/service/data/BusinessData'
+import { createBusiness, updateActiveBusiness, updateBusiness } from '@/service/data/BusinessData'
+import { resetBusiness } from '@/store/slices/businessSlice'
+import { resetBusinessList, setActiveBusiness } from '@/store/slices/userSlice'
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Building2 } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { useForm } from "react-hook-form"
+import { useDispatch } from 'react-redux'
 import { z } from "zod"
 
 export function BusinessDetailsForm({ defaultValues }: { defaultValues: BusinessFormData }) {
     const { toast } = useToast()
     const router = useRouter();
     const [loading, setLoading] = useState(false)
+    const dispatch = useDispatch();
+
     const form = useForm<z.infer<typeof BusinessFormSchema>>({
         resolver: zodResolver(BusinessFormSchema),
         defaultValues,
@@ -38,7 +43,7 @@ export function BusinessDetailsForm({ defaultValues }: { defaultValues: Business
 
         setLoading(false);
 
-        if(!response){
+        if (!response) {
             toast({
                 variant: "destructive",
                 title: "An Error Occurred",
@@ -54,11 +59,12 @@ export function BusinessDetailsForm({ defaultValues }: { defaultValues: Business
                 title: data.id ? "Business Updated Successfully." : "Business Created Successfully.",
                 duration: 2000,
             });
+            dispatch(resetBusiness())
             
             router.push("/dashboard/business");
 
         } else if (response.message === "validation-error") {
-            // Handle validation errors
+            // Handle validation errors // dispatch(resetBusinessList())
             toast({
                 variant: "destructive",
                 title: "Validation Failed",
@@ -85,7 +91,6 @@ export function BusinessDetailsForm({ defaultValues }: { defaultValues: Business
             });
         }
     }
-
 
     // Check for form state errors after submission
     useEffect(() => {
@@ -133,7 +138,7 @@ export function BusinessDetailsForm({ defaultValues }: { defaultValues: Business
                                 <TextInput name="stateCode" label="statecode" placeholder="22" form={form} />
                             </div>
 
-                            <Button type="submit" disabled={loading} >
+                            <Button type="submit" disabled={loading}  >
                                 {loading ? 'Updating Details...' : 'Save'}
                             </Button>
                         </CardContent>

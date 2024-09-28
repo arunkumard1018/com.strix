@@ -19,7 +19,7 @@ export type UserInfo = {
 }
 
 
-export interface Business{
+export interface Business {
     name: string;
     id: number;
     businessType: string;
@@ -30,7 +30,7 @@ export interface Business{
 }
 
 // Define the shape of your business form data if not already defined
-einterface BusinessData {
+export interface BusinessData {
     id: string;
     name: string;
     businessType: string;
@@ -43,4 +43,4 @@ einterface BusinessData {
     hsn: string;
     invoicePrefix: string;
     businessLogo: string;
-  }
+}

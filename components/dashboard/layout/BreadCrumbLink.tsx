@@ -5,7 +5,6 @@ import {
     Breadcrumb,
     BreadcrumbItem,
     BreadcrumbList,
-    BreadcrumbPage,
     BreadcrumbSeparator
 } from "@/components/ui/breadcrumb"
 

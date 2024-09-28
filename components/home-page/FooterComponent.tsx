@@ -3,19 +3,26 @@ import React from 'react'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '../ui/accordion'
 import Link from 'next/link'
 import { HERO_PAGE_CONTENT } from '@/config/HeroPageConfig'
+import Image from 'next/image'
 
 function FooterComponent({ className }: { className?: string }) {
     return (
-        <footer className={cn("text-foreground bg-muted/10 py-8 mt-8", className)}>
+        <footer className={cn("text-foreground bg-muted/50 py-8  md:py-20", className)}>
             <div className="grid md:grid-cols-2 gap-4">
 
-                <div>
+                <div className='md:ml-6 '>
                     <h2 className="text-4xl  font-bold">Strix Invoice</h2>
                     <p className="mt-2">{HERO_PAGE_CONTENT.footer.description}</p>
-                    {/* <div className="flex mt-4 space-x-2">
-            <img src="/path/to/appstore-logo.png" alt="App Store" className="w-24" />
-            <img src="/path/to/googleplay-logo.png" alt="Google Play" className="w-24" />
-          </div> */}
+                    <div className="flex mt-4 space-x-1 items-center">
+                        <Image src="/icons/play-store.png" alt="" className="w" width={35} height={35} />
+                        <div>Download on Play Store</div>
+                    </div>
+                    <div className='flex py-4 space-x-4'>
+                        <Image src="/img/social/x.png" alt="" className="w" width={35} height={35} />
+                        <Image src="/img/social/insta.png" alt="" className="w" width={35} height={35} />
+                        <Image src="/img/social/facebook.png" alt="" className="w" width={35} height={35} />
+                        <Image src="/img/social/linkdin.png" alt="" className="w" width={35} height={35} />
+                    </div>
                 </div>
 
                 <div className='hidden w-full md:flex justify-around'>

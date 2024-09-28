@@ -52,7 +52,7 @@ function Dashboardlayout({ children }: { children: React.ReactNode }) {
             }
         };
         loadUserInfo();
-    }, [userData.businesses.length]);
+    }, [userData.businesses.length,dispatch]);
 
 
     function reset(){

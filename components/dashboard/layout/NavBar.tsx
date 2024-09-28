@@ -13,21 +13,39 @@ import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import DashboardLinks from "./DashboardLinks"
 import { UserMenu } from "./elements"
+import { updateActiveBusiness } from "@/service/data/BusinessData"
+import { useToast } from "@/hooks/use-toast"
 
 
 function NavBar({ className }: { className?: string }) {
 
     const dispatch = useDispatch();
     const userData = useSelector((state: RootState) => state.user);
+    const {toast} = useToast();
 
     const [sheetOpen, setsheetOpen] = useState(false)
     function closeSheet() {
         setsheetOpen(!sheetOpen);
     }
 
-    const handleBusinessChange = (id: string) => {
-
-        dispatch(setActiveBusiness(parseInt(id)))
+    const handleBusinessChange = async (id: string) => {
+        const response = await updateActiveBusiness(parseInt(id));
+        if (response) {
+            dispatch(setActiveBusiness(parseInt(id)));
+            const updatedBusiness = userData.businesses.find(business => business.id === parseInt(id));
+            toast({
+                variant: "success",
+                title: "Business Updated Successfully !",
+                description:`Active Business Changed to ${updatedBusiness?.name}` ,
+                duration: 4000,
+            });
+        }else{
+            toast({
+                variant: "destructive",
+                title: "Failed to Update the Business",
+                duration: 4000,
+            });
+        }
         console.log("Update Business to ", id);
     }
 

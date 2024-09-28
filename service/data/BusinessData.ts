@@ -1,7 +1,5 @@
 import { BusinessFormData } from "@/lib/schemas";
-import { setBusinessList } from "@/store/slices/businessSlice";
 import axios from "axios";
-import { useDispatch } from "react-redux";
 
 
 
@@ -50,7 +48,7 @@ export const updateBusiness = async (payload: BusinessFormData, id: number) => {
             payload,
             { withCredentials: true }
         );
-        if (response.status === 201) {
+        if (response.status === 204) {
             return { message: "success", data: response.data };
         }
     } catch (error: any) {
@@ -69,7 +67,7 @@ export const getBusiness = async (businessId: number) => {
     try {
         const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/business/${businessId}`,
             { withCredentials: true }
-        )
+        );
         if (response.status === 200) {
             return response.data;
         }
@@ -85,7 +83,7 @@ export const deleteBusiness = async (businessId: number) => {
     try {
         const response = await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/business/${businessId}`,
             { withCredentials: true }
-        )
+        );
         if (response.status === 200) {
             return true;
         }
@@ -96,3 +94,20 @@ export const deleteBusiness = async (businessId: number) => {
     }
 }
 
+export const updateActiveBusiness = async (businessId: number) => {
+    console.log("Deleting business with id", businessId);
+
+    try {
+        const response = await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/business/change/${businessId}`,
+            {}, 
+            { withCredentials: true }
+        );
+        if (response.status === 200) {
+            return true;
+        }
+        return false;
+
+    } catch (error) {
+        return false;
+    }
+}

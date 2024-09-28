@@ -1,8 +1,6 @@
-import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import { HERO_PAGE_CONTENT } from '@/config/HeroPageConfig';
 import { cn } from '@/lib/utils';
-import { Menu, Package2 } from "lucide-react";
+import { AlignJustify, LogInIcon, Package2 } from "lucide-react";
 import Image from 'next/image';
 import Link from "next/link";
 
@@ -20,87 +18,48 @@ function AppLogo({ className }: { className?: string }) {
     )
 }
 
-export function NavList({ className, LinkClassName }: { className?: string, LinkClassName?: string }) {
-    const lst = ["Pricing", "Invoicing", "Product", "Blog"]
+export function NavList({ className, LinkClassName, list }: { className?: string, LinkClassName?: string, list: string[] }) {
     return (
         <div className={cn(className)}>
-            {lst.map((item) => (
+            {list.map((item) => (
                 <Link href="/" className={cn(LinkClassName)} key={item}>{item}</Link>
             ))}
         </div>
     )
 }
 
-
 export function SheetComponent({ side = "right" }:
     { side?: 'left' | 'right' | 'bottom' | 'top' }) {
     return (
         <Sheet >
             <SheetTrigger asChild>
-                <Button
-                    variant="outline"
-                    size="icon"
-                    className="shrink-0 md:hidden"
-                >
-                    <Menu className="h-5 w-5" />
-                    <span className="sr-only">Toggle navigation menu</span>
-                </Button>
+                <AlignJustify className="md:hidden size-7" />
             </SheetTrigger>
-            <SheetContent side={side} className="flex flex-col">
-                <nav className="grid  text-lg font-medium">
-                    <Link href="#"
-                        className="flex items-center  text-lg font-semibold mb-4">
-                        <SheetTitle className="flex items-center space-x-3">
+
+            <SheetContent side={side} className="m-0 p-0 px-4 py-4">
+
+                <nav className="grid text-lg font-medium">
+                    <Link href="#" className="">
+                        <SheetTitle className="flex flex-row">
                             <Package2 className="h-6 w-6" />
-                            <span className="text-3xl" >StrixInvoice</span>
+                            <span className="text-xl" >StrixInvoice</span>
                         </SheetTitle>
                     </Link>
                     <SheetDescription />
+                    <NavList className="flex flex-col space-y-3 pt-10 text-xl" list={["All Features", "Pricing", "Invoicing", "Product", "Blog"]} />
 
+                    <div className="pt-2 ">
+                        <Link href="/login" className="flex items-center py-1  ">
+                            Login<LogInIcon className="size-4 mt-1 ml-1" />
+                        </Link>
+                    </div>
                 </nav>
+
             </SheetContent>
+
         </Sheet>
     )
 }
 
-
-
-export function SecondaryHeroSection() {
-    return (
-        <>
-            <div className='p-6 space-y-2' >
-                <h2 className='text font-bold text-black text-center text-xl  md:text-3xl'>{HERO_PAGE_CONTENT.secondaryHeroContent.mainText}</h2>
-                <p className='text-sm text-center'>{HERO_PAGE_CONTENT.secondaryHeroContent.description}</p>
-            </div>
-            {/* Card Section */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {HERO_PAGE_CONTENT.secondaryCardDetails.map((card, index) => (
-                    <CustomDeatisCard icon={card.icon}
-                        key={index * 5}
-                        title={card.title}
-                        description={card.description}
-                        className='p-6 rounded-lg shadow-none border-b bg-white' />
-                ))}
-            </div>
-
-        </>
-    )
-}
-
-
-export function CustomDeatisCard({ icon, title, description, className }:
-    { icon: string, title: string, description: string, className?: string }) {
-    return (
-        <div>
-            <div className={cn("bg-gray-100 p-6 rounded-lg shadow-md", className)} >
-                <div className='flex space-x-4 items-center'>
-                    <div className="text-4xl mb-4">{icon}</div>
-                    <h3 className="text-xl font-semibold mb-2">{title}</h3>
-                </div>
-                <p className="text-gray-600">{description}</p>
-            </div>
-        </div>
-    )
-}
-
 export { AppLogo };
+
