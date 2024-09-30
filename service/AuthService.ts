@@ -1,4 +1,4 @@
-import { RegForm } from "@/lib/type/Forms";
+import { UserInfo } from "@/lib/definations";
 import axios from "axios";
 
 export const authenticate = async (email: string, password: string) => {
@@ -8,7 +8,7 @@ export const authenticate = async (email: string, password: string) => {
     );
 }
 
-export const registerUser = (FormData: RegForm) => {
+export const registerUser = (FormData: UserInfo) => {
     return axios.post(`${process.env.NEXT_PUBLIC_API_URL}/register`,
         FormData,
         { withCredentials: true }

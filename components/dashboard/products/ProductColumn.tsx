@@ -43,7 +43,7 @@ export const ProductColumns: ColumnDef<Product>[] = [
         accessorKey: "SKU",
         header: ({ column }) => {
             return (
-                <TableColumnHeader column={column} title="SKU"  NotSortable />
+                <TableColumnHeader column={column} title="SKU" NotSortable />
             )
         },
         cell: ({ row }) => <div className="uppercase">{row.getValue("SKU")}</div>,
@@ -54,7 +54,7 @@ export const ProductColumns: ColumnDef<Product>[] = [
         accessorKey: "name",
         header: ({ column }) => {
             return (
-                <TableColumnHeader column={column} title="Product Name"  />
+                <TableColumnHeader column={column} title="Product Name" />
             )
         },
         cell: ({ row }) => <div className="capitalize">{row.getValue("name")}</div>,
@@ -82,7 +82,7 @@ export const ProductColumns: ColumnDef<Product>[] = [
         id: "status",
         accessorKey: "status",
         header: ({ column }) => (
-            <TableColumnHeader column={column} title="Status"  NotSortable />
+            <TableColumnHeader column={column} title="Status" NotSortable />
         ),
         cell: ({ row }) => (
             <Badge className="text-xs capitalize" variant="outline">
@@ -117,7 +117,7 @@ export const ProductColumns: ColumnDef<Product>[] = [
         id: "discount",
         accessorKey: "discount",
         header: ({ column }) => (
-            <TableColumnHeader column={column} title="Discount"  NotSortable />
+            <TableColumnHeader column={column} title="Discount" NotSortable />
         ),
         cell: ({ row }) => (
             <div className=" capitalize ">
@@ -132,7 +132,12 @@ export const ProductColumns: ColumnDef<Product>[] = [
         cell: ({ row }) => {
             const product = row.original
             return (
-                <ActionsDropDownRow id={product.SKU} name="product" path="/dashboard/products" />
+                <ActionsDropDownRow
+                    deleteFunction={() => Promise.resolve(true)}
+                    revalidator={(id: number) => console.log("revalidaing", id)}
+                    id={product.SKU}
+                    name="product"
+                    path="/dashboard/products" />
             )
         },
     },

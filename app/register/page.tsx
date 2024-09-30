@@ -78,7 +78,7 @@ export default function RegistrationForm() {
       if (error instanceof AxiosError) {
         if (error.response?.status === 409) {
           const err: FormErrors = {
-            email: error.response.data.message
+            email: error.message
           }
           setErrors(err);
           // need to handle Data Validation Error

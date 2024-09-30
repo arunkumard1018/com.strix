@@ -6,18 +6,21 @@ export interface Business {
     name: string;
     invoicePrefix: string;
     invoiceSeq: number;
-    businessLogo: string | null;
+    businessLogo: string ;
     businessType: string;
+    stateCode: number;
+    hsn: number;
+    gstin: string;
 }
 
-interface UserState {
+export interface UserData {
     id: number | null;
     name: string;
     activeBusiness: Business | null;
     businesses: Business[];
 }
 
-const initialState: UserState = {
+const initialState: UserData = {
     id: null,
     name: '',
     activeBusiness: null,
@@ -29,7 +32,7 @@ const userSlice = createSlice({
     initialState,
 
     reducers: {
-        setUser(state, action: PayloadAction<UserState>) {
+        setUser(state, action: PayloadAction<UserData>) {
             state.id = action.payload.id;
             state.name = action.payload.name;
             state.businesses = action.payload.businesses;
@@ -42,6 +45,17 @@ const userSlice = createSlice({
             state.businesses = [];
         },
 
+        addBusiness(state, action : PayloadAction<Business>){
+            state.businesses.push(action.payload)
+        },
+
+        removeBusiness(state,action:PayloadAction<number>){
+            state.businesses = state.businesses.filter(business => business.id !== action.payload);
+            if (state.activeBusiness?.id === action.payload) {
+                state.activeBusiness = state.businesses[0] || null;
+            }
+        },
+
         clearUser(state) {
             state.id = null;
             state.name = '';
@@ -51,7 +65,7 @@ const userSlice = createSlice({
     },
 });
 
-export const { setUser, setActiveBusiness, clearUser,resetBusinessList } = userSlice.actions;
+export const { setUser, setActiveBusiness, clearUser,resetBusinessList,addBusiness,removeBusiness } = userSlice.actions;
 export default userSlice.reducer;
 
 

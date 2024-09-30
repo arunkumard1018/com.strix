@@ -88,7 +88,10 @@ export const Customerscolumns: ColumnDef<Customers>[] = [
         cell: ({ row }) => {
             const payment = row.original
             return (
-                <ActionsDropDownRow id={parseInt(payment.id)} name="Customer" path="/dashboard/customers" />
+                <ActionsDropDownRow 
+                deleteFunction={() => Promise.resolve(true) } 
+                revalidator={(id:number) => console.log("revalidaing",id) }
+                id={parseInt(payment.id)} name="Customer" path="/dashboard/customers" />
             )
         },
     },

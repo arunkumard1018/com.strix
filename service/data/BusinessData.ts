@@ -1,3 +1,5 @@
+import { handleAxiosError } from "@/components/errors/customErrors";
+import { axiosClient, CustomAxiosResponse, Response } from "@/lib/AxiosClient";
 import { BusinessFormData } from "@/lib/schemas";
 import axios from "axios";
 
@@ -6,7 +8,7 @@ import axios from "axios";
 export const fetchBusinessList = async () => {
     try {
         console.log("Fetching Business List")
-        const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/business`,
+        const response : CustomAxiosResponse = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/business`,
             { withCredentials: true }
         );
         if (response.status === 200) {
@@ -21,29 +23,22 @@ export const fetchBusinessList = async () => {
     }
 }
 
-export const createBusiness = async (payload: BusinessFormData) => {
+export const createBusiness = async (payload: BusinessFormData) : Promise<Response> => {
     try {
-        const response = await axios.post(
-            `${process.env.NEXT_PUBLIC_API_URL}/business`,
-            payload,
-            { withCredentials: true }
-        );
-        if (response.status === 201) {
-            return { message: "success", data: response.data };
+        const response : CustomAxiosResponse = await axiosClient.post(`/business`,payload);
+        return{
+            data: response.data,
+            status: response.status,
+            message: "success"
         }
-    } catch (error: any) {
-        if (error.response?.status === 400) {
-            return { message: "validation-error", errors: error.response.data };
-        } else if (error.response?.status === 500) {
-            return { message: "server-error" };
-        }
-        return { message: "error", error };
+    } catch (error) {
+        throw handleAxiosError(error);
     }
 };
 
 export const updateBusiness = async (payload: BusinessFormData, id: number) => {
     try {
-        const response = await axios.put(
+        const response : CustomAxiosResponse = await axios.put(
             `${process.env.NEXT_PUBLIC_API_URL}/business/${id}`,
             payload,
             { withCredentials: true }
@@ -65,7 +60,7 @@ export const updateBusiness = async (payload: BusinessFormData, id: number) => {
 export const getBusiness = async (businessId: number) => {
     console.log("Getting Business for", businessId)
     try {
-        const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/business/${businessId}`,
+        const response: CustomAxiosResponse = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/business/${businessId}`,
             { withCredentials: true }
         );
         if (response.status === 200) {
@@ -98,7 +93,7 @@ export const updateActiveBusiness = async (businessId: number) => {
     console.log("Deleting business with id", businessId);
 
     try {
-        const response = await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/business/change/${businessId}`,
+        const response = await axios.patch(`${process.env.NEXT_PUBLIC_API_URL}/business/active/${businessId}`,
             {}, 
             { withCredentials: true }
         );

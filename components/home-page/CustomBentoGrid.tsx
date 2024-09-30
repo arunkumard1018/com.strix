@@ -1,8 +1,7 @@
-import React from 'react'
-import {BellIcon,CalendarIcon,FileTextIcon,GlobeIcon,InputIcon,} from "@radix-ui/react-icons";
 import { BentoCard, BentoGrid } from "@/components/magicui/bento-grid";
-import Image from 'next/image';
 import { cn } from '@/lib/utils';
+import { BellIcon, FileTextIcon, GlobeIcon, InputIcon } from "@radix-ui/react-icons";
+import Image from 'next/image';
 
 
 const features = [
@@ -53,7 +52,6 @@ const features = [
         className: "lg:col-start-3 lg:col-end-3 lg:row-start-1 lg:row-end-3",
     },
 ];
-
 
 export async function CustomBentoGrid({className}:{className?:string}) {
     return (

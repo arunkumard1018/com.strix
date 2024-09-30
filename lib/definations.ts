@@ -18,13 +18,14 @@ export type UserInfo = {
     businessType: string,
 }
 
-
 export interface Business {
-    name: string;
     id: number;
+    name: string;
+    invoicePrefix: string;
+    invoiceSeq: number;
+    businessLogo: string ;
     businessType: string;
     stateCode: number;
-    businessLogo: string;
     hsn: number;
     gstin: string;
 }

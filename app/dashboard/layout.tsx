@@ -1,21 +1,28 @@
 "use client";
 import AsideBar from '@/components/dashboard/layout/AsideBar';
 import NavBar from '@/components/dashboard/layout/NavBar';
-import { InternalServerError } from '@/components/errors/errors';
+import { InternalServerError, LoadingError } from '@/components/errors/errors';
 import { DashboardSkeleton } from '@/components/skeltons/DashBoardSkelton';
 import { Toaster } from '@/components/ui/toaster';
+import { Response } from '@/lib/AxiosClient';
+import { ResponseCode } from '@/lib/enums';
 import AuthProvider from '@/providers/AuthProvider';
 import { ThemeProvider } from '@/providers/ThemeProvider';
 import { fetchMe } from '@/service/data/UserData';
-import { setUser } from '@/store/slices/userSlice';
-import { RootState, store } from '@/store/store';
+import { setUser, UserData } from '@/store/slices/userSlice';
+import { store } from '@/store/store';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
-import { Provider, useDispatch, useSelector } from 'react-redux';
+import { Provider, useDispatch } from 'react-redux';
 import { logoff } from '../actions';
+import { AxiosResponseError, AxiosServerError } from '@/components/errors/customErrors';
 
-// Main Layout Component
-export default function Layout({ children }: { children: React.ReactNode }) {
+/**
+ * Main Layout Component
+ * @param ReactNode
+ * @returns renders Dashboard Child Components
+ */
+export default function Layout({ children }: { children: React.ReactNode }): React.JSX.Element {
     return (
         <Provider store={store}>
             <Dashboardlayout>{children}</Dashboardlayout>
@@ -23,45 +30,56 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     );
 }
 
-// Dashboard Layout with Skeleton Loading
-function Dashboardlayout({ children }: { children: React.ReactNode }) {
+/**
+ * 
+ * @param RectNode 
+ * @returns Renders dashboar layout
+ */
+function Dashboardlayout({ children }: { children: React.ReactNode }): React.JSX.Element {
     const dispatch = useDispatch();
-    const [loading, setLoading] = useState(true);
     const router = useRouter();
-    const [serverError, setserverError] = useState(false)
-    const userData = useSelector((state: RootState) => state.user);
+    const [loading, setLoading] = useState(true);
+    const [response, setResponse] = useState<Response<UserData>>()
+    const [retry, setRetry] = useState(0);
 
     /**
      * Load user information when accessing the dashboard
      */
     useEffect(() => {
+        setLoading(true)
         const loadUserInfo = async () => {
+            setResponse(undefined)
             try {
-                const userData = await fetchMe();
-                dispatch(setUser(userData));
-                console.log("userData", userData)
-
-                if (userData != null) {
-                    setLoading(false); // Data fetched, stop loading
+                const response : Response<UserData> = await fetchMe();
+                console.log("RESPONSE ", response)
+                if (response.status === ResponseCode.SUCCESS) {
+                    setLoading(false)
+                    dispatch(setUser(response.data));
                 }
-
             } catch (error) {
-                console.log("ERROR", error)
+                setLoading(false)
+                if (error instanceof AxiosResponseError) setResponse(error.response)
+                else if (error instanceof AxiosServerError) setResponse(error.response)
+
+            } finally {
                 setLoading(false);
-                setserverError(true)
             }
         };
+
         loadUserInfo();
-    }, [userData.businesses.length,dispatch]);
+    }, [dispatch, retry]);
 
+    
 
-    function reset(){
+    function reset() {
         logoff();
         router.push("/login");
     }
-    
-    if(serverError) return <InternalServerError reset={reset} message='Unable to Conect Right Now try after Some times' />
-    
+    console.log(response)
+    if (retry === 5) reset();
+    if (response?.status === ResponseCode.NETWORK_ERROR) return <InternalServerError reset={reset} message='Unable to Conect Right Now try after Some times' />
+    if (response) return <LoadingError message={response.message} status={response.status} reset={() => setRetry(retry + 1)} className="mt-40" />
+
     return (
         <>
             {loading ? (

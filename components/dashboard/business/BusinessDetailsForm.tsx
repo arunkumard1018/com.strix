@@ -1,4 +1,5 @@
 "use client"
+import { AxiosResponseError, AxiosServerError } from '@/components/errors/customErrors'
 import { SelectInput, TextInput } from '@/components/forms/FormFields'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -6,10 +7,10 @@ import { Form } from '@/components/ui/form'
 import { BUSINESS_CATEGORY } from '@/config/DashboardConfig'
 import { INDIAN_STATES } from '@/config/FormConfig'
 import { useToast } from '@/hooks/use-toast'
+import { ResponseCode } from '@/lib/enums'
 import { BusinessFormData, BusinessFormSchema } from '@/lib/schemas'
-import { createBusiness, updateActiveBusiness, updateBusiness } from '@/service/data/BusinessData'
-import { resetBusiness } from '@/store/slices/businessSlice'
-import { resetBusinessList, setActiveBusiness } from '@/store/slices/userSlice'
+import { createBusiness } from '@/service/data/BusinessData'
+import { addBusiness } from '@/store/slices/userSlice'
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Building2 } from 'lucide-react'
 import { useRouter } from 'next/navigation'
@@ -19,10 +20,10 @@ import { useDispatch } from 'react-redux'
 import { z } from "zod"
 
 export function BusinessDetailsForm({ defaultValues }: { defaultValues: BusinessFormData }) {
-    const { toast } = useToast()
     const router = useRouter();
     const [loading, setLoading] = useState(false)
     const dispatch = useDispatch();
+    const { toast } = useToast();
 
     const form = useForm<z.infer<typeof BusinessFormSchema>>({
         resolver: zodResolver(BusinessFormSchema),
@@ -32,65 +33,53 @@ export function BusinessDetailsForm({ defaultValues }: { defaultValues: Business
     async function onSubmit(data: z.infer<typeof BusinessFormSchema>) {
         setLoading(true);
 
-        let response;
-        if (data.id) {
-            // Update business
-            response = await updateBusiness(data, parseInt(data.id));
-        } else {
-            // Create business
-            response = await createBusiness(data);
+        // Create business
+        try {
+            const response = await createBusiness(data);
+            if (response.status === ResponseCode.CREATED || response.status === ResponseCode.SUCCESS) {
+                toast({
+                    variant: "success",
+                    title: `Business ${response.data.name} Created Successfully !`,
+                    duration: 3000,
+                });
+                dispatch(addBusiness(response.data));
+                router.push("/dashboard/business");
+            }
+            if (response.status === ResponseCode.SUCCESS) {
+                toast({
+                    variant: "success",
+                    title: `Business ${response.data.name} Updated Successfully !`,
+                    duration: 3000,
+                });
+                router.push("/dashboard/business");
+            }
+        } catch (error) {
+            if (error instanceof AxiosResponseError) {
+                toast({
+                    variant: "destructive",
+                    title: `Failed to Update Busisness ${data.name} !`,
+                    description: error.response.data.details,
+                    duration: 3000,
+                });
+            } else if (error instanceof AxiosServerError) {
+                toast({
+                    variant: "destructive",
+                    title: `Failed to Update Business ${data.name} !`,
+                    description: error.message,
+                    duration: 3000,
+                });
+            } else if(error instanceof Error) {
+                toast({
+                    variant: "destructive",
+                    title: `Unable to Update Business ${data.name} !`,
+                    description: error?.message,
+                    duration: 3000,
+                });
+            }
         }
-
         setLoading(false);
-
-        if (!response) {
-            toast({
-                variant: "destructive",
-                title: "An Error Occurred",
-                description: "An unexpected error occurred. Please try again.",
-                duration: 4000,
-            });
-            return;
-        }
-
-        if (response.message === "success") {
-            toast({
-                variant: "success",
-                title: data.id ? "Business Updated Successfully." : "Business Created Successfully.",
-                duration: 2000,
-            });
-            dispatch(resetBusiness())
-            
-            router.push("/dashboard/business");
-
-        } else if (response.message === "validation-error") {
-            // Handle validation errors // dispatch(resetBusinessList())
-            toast({
-                variant: "destructive",
-                title: "Validation Failed",
-                description: response.errors.details,
-                duration: 4000,
-            });
-
-        } else if (response.message === "server-error") {
-            // Handle server error
-            toast({
-                variant: "destructive",
-                title: "Server Error",
-                description: "Something went wrong on the server. Please try again later.",
-                duration: 4000,
-            });
-
-        } else {
-            // Handle any other error
-            toast({
-                variant: "destructive",
-                title: "An Error Occurred",
-                description: "An unexpected error occurred. Please try again.",
-                duration: 4000,
-            });
-        }
     }
+
 
     // Check for form state errors after submission
     useEffect(() => {
@@ -148,6 +137,5 @@ export function BusinessDetailsForm({ defaultValues }: { defaultValues: Business
             </Form>
         </div>
     )
+
 }
-
-

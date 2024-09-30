@@ -1,6 +1,6 @@
 "use client"
 
-import {ColumnDef} from "@tanstack/react-table"
+import { ColumnDef } from "@tanstack/react-table"
 import { Checkbox } from "@/components/ui/checkbox"
 import { ActionsDropDownRow } from "@/components/reusable-table/ActionDropDownRow"
 import { TableColumnHeader } from "@/components/reusable-table/TableColumnHaeder"
@@ -96,7 +96,12 @@ export const Invoicecolumns: ColumnDef<Payment>[] = [
         cell: ({ row }) => {
             const payment = row.original
             return (
-                <ActionsDropDownRow id={parseInt(payment.id)} name="Invoice" path="/dashboard/invoices" />
+                <ActionsDropDownRow
+                    deleteFunction={() => Promise.resolve(true)}
+                    revalidator={(id: number) => console.log("revalidaing", id)}
+                    id={parseInt(payment.id)}
+                    name="Invoice"
+                    path="/dashboard/invoices" />
 
             )
         },

@@ -1,4 +1,4 @@
-import { Business,Customers, Payment  } from "./table-data-definations";
+import {Customers, Payment  } from "./table-data-definations";
 
 export const INDIAN_STATES: string[] = [
     'Select State',
@@ -138,37 +138,6 @@ export const payments: Payment[] = [
 // revenue:number
 // totalInvoices:number
 // totalRevenue:number
-export const business: Business[] = [
-    {
-        id: "728ed52f",
-        BusinessName: "KG Enterprises",
-        businessLogo: "/img/primary-image-dark.jpg",
-        revenue: 850045,
-        totalInvoices: 45,
-    },
-    {
-        id: "728ed52k",
-        BusinessName: "SG Enterprises",
-        businessLogo: "/img/primary-image-dark.jpg",
-        revenue: 850045,
-        totalInvoices: 45,
-    },
-    {
-        id: "728ed526",
-        BusinessName: "AG Enterprises",
-        businessLogo: "/img/primary-image-dark.jpg",
-        revenue: 850045,
-        totalInvoices: 45,
-    },
-    {
-        id: "728ed524",
-        BusinessName: "RGL Enterprises",
-        businessLogo: "/img/primary-image-dark.jpg",
-        revenue: 850045,
-        totalInvoices: 45,
-    },
-
-]
 
 
 // id: string

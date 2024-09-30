@@ -1,19 +1,22 @@
-import axios from "axios";
+import { handleAxiosError } from "@/components/errors/customErrors";
+import { axiosClient, CustomAxiosResponse, Response } from "@/lib/AxiosClient";
+import { UserData } from "@/store/slices/userSlice";
 
-export const fetchMe = async () => {
+
+
+export const fetchMe = async (): Promise<Response<UserData>> => {
+
     try {
-        const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/me`,
-            { withCredentials: true }
-        );
-        console.log("RESP",response)
-        if (response.status === 200) {
-            return (response.data)
-        } else {
-            return null;
-        }
+        const response: CustomAxiosResponse<UserData> = await axiosClient.get(`/me`);
+        return {
+            data: response.data,
+            status: response.status,
+            message: "success"
+        };
     } catch (error) {
-        console.log("ERROR",error)
-        return error;
+        throw handleAxiosError(error);
     }
-}
+};
+
+
 

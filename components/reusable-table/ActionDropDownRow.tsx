@@ -13,7 +13,7 @@ export function ActionsDropDownRow({ id, name, path, itemName, deleteFunction, r
     {
         id: number | string, name: string, path: string, itemName?: string,
         deleteFunction: (id: number) => Promise<boolean>,
-        revalidator: () => void
+        revalidator: (id:number) => void
     }) {
 
     const [isDialogOpen, setDialogOpen] = useState(false); // State to control dialog visibility
@@ -31,9 +31,8 @@ export function ActionsDropDownRow({ id, name, path, itemName, deleteFunction, r
                 title: `${name} ${itemName} Delted Successfuly.`,
                 duration: 2000,
             })
-            revalidator();
+            revalidator(Number(id));
             route.refresh();
-            
         } else {
             toast({
                 variant: "destructive",

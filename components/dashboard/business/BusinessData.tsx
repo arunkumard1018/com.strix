@@ -1,35 +1,17 @@
 "use client"
 import { TableComponent } from "@/components/reusable-table/TableComponent"
-import { TableSkeleton } from "@/components/skeltons/TableSkelton"
 import { Button } from "@/components/ui/button"
 import { Tabs } from "@/components/ui/tabs"
-import { fetchBusinessList } from "@/service/data/BusinessData"
-import { setBusinessList } from "@/store/slices/businessSlice"
 import { RootState } from "@/store/store"
 import { File, PlusCircle } from "lucide-react"
 import Link from "next/link"
-import { useEffect } from "react"
-import { useDispatch, useSelector } from "react-redux"
+import { useSelector } from "react-redux"
 import { Businesscolumns } from "./BusinessColumn"
 
 
 export default function BusinessTable() {
-    const businessList = useSelector((state: RootState) => state.businessList);
-    const dispatch = useDispatch();
+    const businessList = useSelector((state: RootState) => state.user.businesses);
     
-    useEffect(() => {
-        const loadBusinessList = async () => {
-            const businessData = await fetchBusinessList();
-            dispatch(setBusinessList(businessData));
-        }
-        if (businessList.length <= 0) {
-            loadBusinessList();
-        }
-    }, [businessList.length,dispatch])
-
-
-    if (businessList.length === 0) return <TableSkeleton />
-
     return (
         <div className="flex flex-col sm:py-4">
             <div className="grid flex-1 items-start gap-4 p-2 sm:px-6 sm:py-0 md:gap-8">
@@ -58,7 +40,7 @@ export default function BusinessTable() {
                     </div>
 
                     <TableComponent columns={Businesscolumns} data={businessList} heading="Business Details" headingInfo="Manage You Business"
-                        smHiddenCells={["gstin"]}
+                        smHiddenCells={["gstin","businessType","hsn"]}
                         isSearchInputRequired={false}
                         searchInputValue=""
                         key={businessList.length}
