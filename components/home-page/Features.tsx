@@ -45,6 +45,7 @@ export function FeaturesImage() {
         </div>
     );
 }
+
 export function Features({ className }: { className?: string }) {
     return (
         <div>
@@ -95,6 +96,7 @@ export function DashboardFeatures() {
         </>
     )
 }
+
 function CustomDeatisCard({ icon, title, description, className }:
     { icon: string, title: string, description: string, className?: string }) {
     return (
@@ -121,6 +123,7 @@ function CustomButton({ children, className }:
     )
 
 }
+
 function FeatureCard({ title, description, icon }: { title: string, description: string, icon: string }) {
     return (
         <div className="bg-muted/20 p-6 rounded-lg text-center">
@@ -130,6 +133,7 @@ function FeatureCard({ title, description, icon }: { title: string, description:
         </div>
     );
 }
+
 function MotionxInView({ children, x = -100, duration = 0.5 }:
     { children: ReactNode, x?: number, duration?: number }) {
     return (

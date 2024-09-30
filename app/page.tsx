@@ -1,5 +1,5 @@
 import { CustomBentoGrid } from "@/components/home-page/CustomBentoGrid";
-import { DashboardFeatures, Features, FeaturesImage } from "@/components/home-page/features";
+import { DashboardFeatures, Features, FeaturesImage } from "@/components/home-page/features";;
 import FooterComponent from "@/components/home-page/FooterComponent";
 import { DashboardImage, HeroText } from "@/components/home-page/Hero";
 import NavBar from "@/components/home-page/NavBar";
