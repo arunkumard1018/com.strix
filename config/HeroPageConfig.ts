@@ -94,7 +94,7 @@ export const HERO_PAGE_CONTENT = {
         {
             title: "Professional-Looking Invoices",
             description: "Customize your invoices from the start. We don’t add watermarks or branding to your documents.",
-            icon: "/features/document.png"
+            icon: "/img/features/document.png"
         },
         {
             title: "Full Feature Access",
@@ -104,12 +104,12 @@ export const HERO_PAGE_CONTENT = {
         {
             title: "Manage Your Business Anywhere",
             description: "Select from over 150+ currencies to run your business globally.",
-            icon: "/features/manage.png"
+            icon: "/img/features/manage.png"
         },
         {
             title: "Accessible on Any Device",
             description: "Use both our mobile and web versions to see which works best for your needs.",
-            icon: "/features/devices.png"
+            icon: "/img/features/devices.png"
         }
     ],
     footer: {

@@ -3,6 +3,8 @@ import { cn } from '@/lib/utils';
 import { AlignJustify, LogInIcon, Package2 } from "lucide-react";
 import Image from 'next/image';
 import Link from "next/link";
+import { ReactNode } from "react";
+import { motion } from 'framer-motion';
 
 
 function AppLogo({ className }: { className?: string }) {
@@ -61,5 +63,17 @@ export function SheetComponent({ side = "right" }:
     )
 }
 
-export { AppLogo };
+function CustomButton({ children, className }:
+    { children: ReactNode, className?: string }) {
+    return (
+        <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}>
+            <div className={cn("text-black p-2 bg-gray-400 rounded-sm", className)}>{children}</div>
+        </motion.button>
+    )
+
+}
+
+export { AppLogo, CustomButton };
 

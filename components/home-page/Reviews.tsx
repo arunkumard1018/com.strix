@@ -1,45 +1,52 @@
-import { cn } from "@/lib/utils";
 import Marquee from "@/components/magicui/marquee";
+import { cn } from "@/lib/utils";
 import Image from "next/image";
 
 const reviews = [
     {
-        name: "Jack",
-        username: "@jack",
-        body: "I've never seen anything like this before. It's amazing. I love it.",
-        img: "https://avatar.vercel.sh/jack",
+        name: "Rajesh Sharma",
+        enterprise: "Sharma Enterprises",
+        username: "@rajeshsharma",
+        body: "This software has transformed the way I manage my business. It's incredible!",
+        img: "https://avatar.vercel.sh/rajeshsharma",
     },
     {
-        name: "Jill",
-        username: "@jill",
-        body: "I don't know what to say. I'm speechless. This is amazing.",
-        img: "https://avatar.vercel.sh/jill",
+        name: "Anita Kapoor",
+        enterprise: "Kapoor Trading Co.",
+        username: "@anitakapoor",
+        body: "I can't believe how easy invoicing has become with this tool. Highly recommended!",
+        img: "https://avatar.vercel.sh/anitakapoor",
     },
     {
-        name: "John",
-        username: "@john",
-        body: "I'm at a loss for words. This is amazing. I love it.",
-        img: "https://avatar.vercel.sh/john",
+        name: "Vikram Singh",
+        enterprise: "Singh Technologies",
+        username: "@vikramsingh",
+        body: "Managing invoices and tracking payments has never been this efficient. Amazing!",
+        img: "https://avatar.vercel.sh/vikramsingh",
     },
     {
-        name: "Jane",
-        username: "@jane",
-        body: "I'm at a loss for words. This is amazing. I love it.",
-        img: "https://avatar.vercel.sh/jane",
+        name: "Priya Mehta",
+        enterprise: "Mehta Solutions",
+        username: "@priyamehta",
+        body: "This software simplifies everything. It’s a must-have for any business owner.",
+        img: "https://avatar.vercel.sh/priyamehta",
     },
     {
-        name: "Jenny",
-        username: "@jenny",
-        body: "I'm at a loss for words. This is amazing. I love it.",
-        img: "https://avatar.vercel.sh/jenny",
+        name: "Amit Verma",
+        enterprise: "Verma Industries",
+        username: "@amitverma",
+        body: "The user-friendly interface and robust features make invoicing a breeze!",
+        img: "https://avatar.vercel.sh/amitverma",
     },
     {
-        name: "James",
-        username: "@james",
-        body: "I'm at a loss for words. This is amazing. I love it.",
-        img: "https://avatar.vercel.sh/james",
+        name: "Neha Rao",
+        enterprise: "Rao & Co.",
+        username: "@neharao",
+        body: "With this software, I can easily track all my business finances in one place.",
+        img: "https://avatar.vercel.sh/neharao",
     },
 ];
+
 
 const firstRow = reviews.slice(0, reviews.length / 2);
 const secondRow = reviews.slice(reviews.length / 2);

@@ -1,50 +1,10 @@
 "use client"
 import { HERO_PAGE_CONTENT } from "@/config/HeroPageConfig";
 import { cn } from "@/lib/utils";
-import { motion } from 'framer-motion';
-import { Check } from "lucide-react";
 import Image from "next/image";
-import { ReactNode } from "react";
+import { CustomButton } from "../custom/elements";
 
-export function FeaturesImage() {
-    return (
-        <div className="py-8 md:py-12 px-10 lg:px-24 flex flex-col lg:flex-row items-center justify-around rounded-lg space-y-1 lg:space-y-0 lg:space-x-16">
 
-            {/* Left side: Image and customization preview */}
-            <div className="relative">
-                {/* Background image  */}
-                <MotionxInView>
-                    <div className="relative w-full max-w-xs mx-auto">
-                        <Image
-                            src={HERO_PAGE_CONTENT.FeatureImage.imagePath}
-                            alt="Invoice preview"
-                            width={350}
-                            height={350}
-                            priority={true}
-                            className="rounded-lg" />
-                    </div>
-                </MotionxInView>
-            </div>
-
-            {/* Image Description */}
-            <div className="md:text-left max-w-lg mb-10 md:mb-0 text-center space-y-4">
-                <h1 className="text-xl sm:text-3xl font-bold mb-4 capitalize text-left sm:text-left">{HERO_PAGE_CONTENT.FeatureImage.title}</h1>
-                <p className="mb-6 text-justify text-xs md:text-sm capitalize" >{HERO_PAGE_CONTENT.FeatureImage.description}</p>
-
-                {HERO_PAGE_CONTENT.FeatureImage.tagliens.map((item, index) => (
-                    <div key={index * 5} className="flex mb-2 text-xs md:text-sm capitalize" >
-                        <span className="bg-teal-500 rounded-full h-4 w-4 sm:h-6 sm:w-6 flex items-center justify-center mr-3">
-                            <Check className="size-3 sm:size-5 text-white" />
-                        </span>
-                        {item}
-                    </div>
-                ))}
-
-                <CustomButton className="mb-8 md:mb-0 mt-8  bg-orange-500 hover:bg-orange-600 text-white font-semibold md:py- px-8 rounded-full">Learn More</CustomButton>
-            </div>
-        </div>
-    );
-}
 
 export function Features({ className }: { className?: string }) {
     return (
@@ -85,7 +45,7 @@ export function DashboardFeatures() {
             {/* Card Section */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {HERO_PAGE_CONTENT.secondaryCardDetails.map((card, index) => (
-                    <CustomDeatisCard icon={card.icon}
+                    <DeatisCard icon={card.icon}
                         key={index * 5}
                         title={card.title}
                         description={card.description}
@@ -97,7 +57,29 @@ export function DashboardFeatures() {
     )
 }
 
-function CustomDeatisCard({ icon, title, description, className }:
+export function DashboardImage({ className }: { className?: string }) {
+    return (
+        <div className="mt-5">
+            <div className={cn("hidden md:flex items-center justify-center", className)}>
+                <div className="w-full">
+                    <div className="hidden md:flex items-center justify-center">
+                        <div className="relative md:w-2/3 md:h-[65vh] pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-center text-8xl font-semibold leading-none text-transparent dark:from-white dark:to-slate-900/10">
+                            <Image src="/img/dashboard/dashboard-1.png" alt="" fill className="object-fill" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div className="flex items-center justify-center md:hidden">
+                <div className="relative  w-full h-[35vh]">
+                    <Image src="/img/dashboard/mobile-dashboard-1.png" alt="" fill className="object-fill" />
+                </div>
+            </div>
+        </div>
+    )
+}
+
+
+function DeatisCard({ icon, title, description, className }:
     { icon: string, title: string, description: string, className?: string }) {
     return (
         <div>
@@ -112,18 +94,6 @@ function CustomDeatisCard({ icon, title, description, className }:
     )
 }
 
-function CustomButton({ children, className }:
-    { children: ReactNode, className?: string }) {
-    return (
-        <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}>
-            <div className={cn("text-black p-2 bg-gray-400 rounded-sm", className)}>{children}</div>
-        </motion.button>
-    )
-
-}
-
 function FeatureCard({ title, description, icon }: { title: string, description: string, icon: string }) {
     return (
         <div className="bg-muted/20 p-6 rounded-lg text-center">
@@ -132,16 +102,4 @@ function FeatureCard({ title, description, icon }: { title: string, description:
             <p className="text-gray-600 mt-2">{description}</p>
         </div>
     );
-}
-
-function MotionxInView({ children, x = -100, duration = 0.5 }:
-    { children: ReactNode, x?: number, duration?: number }) {
-    return (
-        <motion.div
-            whileInView={{ opacity: 1, x: 0 }}
-            initial={{ opacity: 0, x: x }}
-            transition={{ duration: duration }}
-
-        >{children}</motion.div>
-    )
 }
